@@ -1,0 +1,23 @@
+---
+- name: Create the backup directory
+  file:
+    path: "{{ backup_directory_remote }}"
+    state: directory
+    mode: 0755
+
+- name: Create a backup of the master and etcd files
+  archive:
+    path:
+      - /usr/lib/systemd/system/atomic-openshift-master-api.service
+      - /usr/lib/systemd/system/atomic-openshift-master-controllers.service
+      - /etc/sysconfig/atomic-openshift-master-api
+      - /etc/sysconfig/atomic-openshift-master-controllers
+      - /etc/origin/master/master-config.yaml
+      - /etc/origin/master/scheduler.json
+      - /etc/etcd/etcd.conf
+    dest: "{{ backup_directory_remote }}/master_archive.tar.gz"
+
+- name: Fetch archives
+  fetch:
+    src: "{{ backup_directory_remote }}/master_archive.tar.gz"
+    dest: "{{ backup_directory_local }}/"
