@@ -32,6 +32,3 @@
   hosts: localhost
   roles:
     - upgrade_openshift
-  environment:
-    REG_AUTH_USER: aos-qe-pull36
-    REG_AUTH_PASSWORD: Oo_JGIEi4bP9KttMbDY-_jfhfrWscpt23X_DHMah9dA
