@@ -1,9 +1,7 @@
 ---
-ansible_version_begin: "{{ lookup('env', 'ansible_version_begin')|default('2.4.5', true) }}"
-ansible_version_end: "{{ lookup('env', 'ansible_version_end')|default('2.6.3', true) }}"
+aos_repo: "{{ lookup('env', 'aos_repo')|default('https://mirror.openshift.com/enterprise/all/' ~ openshift_version_end ~ '/latest/RH7-RHAOS-' ~ openshift_version_end ~'/x86_64/os/', true) }}"
 backup_directory_local: "{{ lookup('env', 'backup_directory_local')|default('backup', true) }}"
 backup_directory_remote: "{{ lookup('env', 'backup_directory_remote')|default('/backup', true) }}"
-openshift_ansible_branch_begin: "{{ lookup('env', 'openshift_ansible_branch_begin')|default('release-' ~ openshift_version_begin, true) }}"
-openshift_ansilbe_branch_end: "{{ looup('env', 'openshift_ansible_branch_end')|default('master', true) }}"
+inventory_path: "{{ lookup('env', 'inventory_path')|default('upgrade-inventory', true) }}"
 openshift_version_begin: "{{ lookup('env', 'openshift_version_begin')|default('3.10', true) }}"
 openshift_version_end: "{{ lookup('env', 'openshift_version_end')|default('3.11', true) }}"

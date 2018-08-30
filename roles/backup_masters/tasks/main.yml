@@ -20,4 +20,4 @@
 - name: Fetch archives
   fetch:
     src: "{{ backup_directory_remote }}/master_archive.tar.gz"
-    dest: "{{ backup_directory_local }}/"
+    dest: "{{ backup_directory_local }}"

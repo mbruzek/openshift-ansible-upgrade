@@ -1,20 +1,11 @@
 ---
-- name: "Disable {{ openshift_version_begin }} repositories"
-  command: "echo 'Disable {{ openshift_version_begin }} repositories.'"
+- name: Copy over the new repositories
+  template:
+    backup: yes
+    src: "aos.repo.j2"
+    dest: "/etc/yum.repos.d/aos.repo"
 
 - name: Clean the yum metada cache
   command: "yum clean all"
   args:
     warn: no
-
-- name: Copy over the new repositories
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-  - { "src": "ansible-24.repo", "dest": "/etc/yum.repos.d/ansible-24.repo" }
-
-- name: "Install ansible version {{ ansible_version_end }}"
-  package:
-    name: "ansible-{{ ansible_version_end }}"
-    state: present

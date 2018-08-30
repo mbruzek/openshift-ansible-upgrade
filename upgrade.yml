@@ -12,7 +12,25 @@
     - backup_nodes
 
 - name: Update the software repositories
-  hosts: nodes
+  hosts: all
   become: true
   roles:
     - software_repositories
+
+- name: Install openshift-ansible on the localhost
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install openshift-ansible
+      package:
+        name: "openshift-ansible"
+        state: present
+
+    - name: Perform the upgrade
+      shell: >
+        echo 'ansible-playbook -vvv
+        -i {{ inventory_path }}
+        /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-cluster/upgrades/{{ openshift_version_end }}/upgrade.yml 2>&1 upgrade.log'
+      args:
+        # Use bash to get the posix style redirects.
+        executable: /bin/bash
