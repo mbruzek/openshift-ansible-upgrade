@@ -12,10 +12,11 @@
     src: /usr/share/ansible/openshift-ansible/ansible.cfg
 
 - name: Edit the inventory file
-  lineinfile:
+  replace:
+    backup: yes
     path: "{{ inventory_path }}"
     regexp: "{{ item['find'] }}"
-    line: "{{ item['replace'] }}"
+    replace: "{{ item['replace'] }}"
   with_items:
     - { find: "ansible_ssh_private_key_file=\".*\"", replace: "" }
     - { find: "{{ openshift_version_begin }}", replace: "{{ openshift_version_end }}" }
