@@ -4,6 +4,12 @@
   roles:
     - load_cluster
 
+- name: Install openshift-ansible on the localhost
+  hosts: localhost
+  become: true
+  roles:
+    - install_configure
+
 - name: Backup the master nodes
   hosts: masters
   become: true
@@ -21,12 +27,6 @@
   become: true
   roles:
     - software_repositories
-
-- name: Install openshift-ansible on the localhost
-  hosts: localhost
-  become: true
-  roles:
-    - install_cluster
 
 - name: Perform the upgrade
   hosts: localhost

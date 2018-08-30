@@ -20,7 +20,7 @@
   shell: >
     {{ kubeconfig }};
     /usr/libexec/atomic-openshift/extended.test --ginkgo.focus="Load cluster"
-    --viper-config={{ cluster_loader_configuration }}
+    --viper-config={{ cluster_loader_configuration }} 2>&1 | tee cluster_load.log
   args:
     chdir: "{{ cluster_loader_base_directory }}"
     executable: /bin/bash
