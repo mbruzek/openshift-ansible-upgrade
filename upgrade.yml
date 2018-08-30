@@ -1,4 +1,9 @@
 ---
+- name: Load the cluster
+  hosts: localhost
+  roles:
+    - load_cluster
+
 - name: Backup the master nodes
   hosts: masters
   become: true
@@ -20,17 +25,13 @@
 - name: Install openshift-ansible on the localhost
   hosts: localhost
   become: true
-  tasks:
-    - name: Install openshift-ansible
-      package:
-        name: "openshift-ansible"
-        state: present
+  roles:
+    - install_cluster
 
-    - name: Perform the upgrade
-      shell: >
-        echo 'ansible-playbook -vvv
-        -i {{ inventory_path }}
-        /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-cluster/upgrades/{{ openshift_version_end }}/upgrade.yml 2>&1 upgrade.log'
-      args:
-        # Use bash to get the posix style redirects.
-        executable: /bin/bash
+- name: Perform the upgrade
+  hosts: localhost
+  roles:
+    - upgrade_openshift
+  environment:
+    REG_AUTH_USER: aos-qe-pull36
+    REG_AUTH_PASSWORD: Oo_JGIEi4bP9KttMbDY-_jfhfrWscpt23X_DHMah9dA

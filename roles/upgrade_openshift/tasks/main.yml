@@ -1,0 +1,22 @@
+---
+- name: Pause before running upgrade
+  pause:
+    prompt: "About to run the upgrade to {{ openshift_version_end }}. Continue?"
+
+- name: Perform the upgrade
+  shell: >
+    ansible-playbook -vvv
+    -i {{ inventory_path }}
+    /usr/share/ansible/openshift-ansible/playbooks/byo/openshift-cluster/upgrades/v{{ openshift_version_end | regex_replace('\.', '_') }}/upgrade.yml 2>&1 > upgrade.log
+  args:
+    # Use bash to get the posix style redirects.
+    executable: /bin/bash
+
+- name: Print out the node status
+  shell: oc get nodes -o wide | tee post_upgrade_nodes.txt
+
+- name: Print out the current projects
+  shell: oc get projects --all-namespaces | tee post_upgrade_projects.txt
+
+- name: Print out the current pods
+  shell: oc get pods --all-namespaces | tee post_upgrade_pods.txt

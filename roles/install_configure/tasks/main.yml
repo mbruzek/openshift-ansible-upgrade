@@ -1,0 +1,21 @@
+---
+- name: Install openshift-ansible from the package manager
+  package:
+    name: "openshift-ansible"
+    state: present
+
+- name: Copy the ansible.cfg from openshift-ansible
+  copy:
+    backup: yes
+    dest: /etc/ansible/ansible.cfg
+    remote_src: yes
+    src: /usr/share/ansible/openshift-ansible/ansible.cfg
+
+- name: Edit the inventory file
+  lineinfile:
+    path: "{{ inventory_path }}"
+    regexp: "{{ item['find'] }}"
+    line: "{{ item['replace'] }}"
+  with_items:
+    - { find: "ansible_ssh_private_key_file=\".*\"", replace: "" }
+    - { find: "{{ openshift_version_begin }}", replace: "{{ openshift_version_end }}" }
