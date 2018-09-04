@@ -2,7 +2,7 @@
 - name: Install openshift-ansible from the package manager
   package:
     name: "openshift-ansible"
-    state: present
+    state: latest
 
 - name: Copy the ansible.cfg from openshift-ansible
   copy:
