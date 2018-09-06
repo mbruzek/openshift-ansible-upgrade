@@ -12,6 +12,8 @@ To run the upgrade follow these steps:
 * Set the appropriate environment variables:
   * Cluster loader configuration directory:  `export cluster_loader_base_directory=/root/cm/content`
   * Cluster loader configuration file:  `export cluster_loader_configuration=../cm_10` (notice no extension)
+  * The registration authentication user
+  * The registration authentication password
   * See [all.yml](group_vars/all.yml) for more environment variables.
 
 ```
@@ -20,5 +22,7 @@ cd openshift-ansible-upgrade
 cp ../inv ./upgrade-inventory
 export cluster_loader_base_directory=/root/cm/content
 export cluster_loader_configuration=../cm_10
+export REG_AUTH_USER=
+export REG_AUTH_PASSWORD=
 ansible-playbook -vv -i upgrade-inventory upgrade.yml
 ```
