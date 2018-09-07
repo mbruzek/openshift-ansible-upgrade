@@ -2,6 +2,7 @@
 aos_repo: "{{ lookup('env', 'aos_repo')|default('https://mirror.openshift.com/enterprise/all/' ~ openshift_version_end ~ '/latest/RH7-RHAOS-' ~ openshift_version_end ~'/x86_64/os/', true) }}"
 backup_directory_local: "{{ lookup('env', 'backup_directory_local')|default('backup', true) }}"
 backup_directory_remote: "{{ lookup('env', 'backup_directory_remote')|default('/backup', true) }}"
+cluster_data_url: "{{ lookup('env', 'cluster_data_url')}}"
 cluster_loader_base_directory: "{{ lookup('env', 'cluster_loader_base_directory')|default('/root/svt/openshift_scalability', true) }}"
 cluster_loader_configuration: "{{ lookup('env', 'cluster_loader_configuration')|default('config/golang/nodeVertical', true) }}"
 inventory_path: "{{ lookup('env', 'inventory_path')|default('upgrade-inventory', true) }}"

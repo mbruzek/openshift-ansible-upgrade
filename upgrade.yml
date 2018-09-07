@@ -1,4 +1,9 @@
 ---
+- name: Download cluster data
+  hosts: localhost
+  roles:
+    - download_cluster_data
+
 - name: Load the cluster
   hosts: localhost
   roles:

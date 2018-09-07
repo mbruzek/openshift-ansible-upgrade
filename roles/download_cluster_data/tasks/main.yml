@@ -1,0 +1,7 @@
+---
+- name: Download and uncompress the cluster data file
+  unarchive:
+    src: "{{ cluster_data_url }}"
+    dest: "./"
+    remote_src: yes
+  when: cluster_data_url != ""
