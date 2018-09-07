@@ -12,8 +12,8 @@ To run the upgrade follow these steps:
 * Set the appropriate environment variables:
   * Cluster loader configuration directory:  `export cluster_loader_base_directory=/root/cm`
   * Cluster loader configuration file:  `export cluster_loader_configuration=cm_01` (notice no extension)
-  * The registration authentication user
-  * The registration authentication password
+  * The registry authentication user
+  * The registry authentication password
   * See [all.yml](group_vars/all.yml) for more environment variables.
 
 ```
