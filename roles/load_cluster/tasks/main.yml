@@ -1,12 +1,12 @@
 ---
-- name: Print out the node status
-  shell: oc get nodes -o wide | tee before_cluster_load_nodes.txt
+- name: Print out the original node status
+  shell: oc get nodes -o wide | tee original_nodes.txt
 
-- name: Print out the current projects
-  shell: oc get projects --all-namespaces | tee before_cluster_load_projects.txt
+- name: Print out the original projects
+  shell: oc get projects --all-namespaces | tee original_projects.txt
 
-- name: Print out the current pods
-  shell: oc get pods --all-namespaces | tee before_cluster_load_pods.txt
+- name: Print out the original pods
+  shell: oc get pods --all-namespaces | tee original_pods.txt
 
 - name: Set the KUBECONFIG environment variable
   set_fact:
@@ -26,11 +26,15 @@
     chdir: "{{ cluster_loader_base_directory }}"
     executable: /bin/bash
 
-- name: Print out the node status
-  shell: oc get nodes -o wide | tee after_cluster_load_nodes.txt
+- name: Pause to give pods more time to start
+  pause:
+    seconds: 5
 
-- name: Print out the current projects
-  shell: oc get projects --all-namespaces | tee after_cluster_load_projects.txt
+- name: Print out the node status after cluster load
+  shell: oc get nodes -o wide | tee cluster_loaded_nodes.txt
 
-- name: Print out the current pods
-  shell: oc get pods --all-namespaces | tee after_cluster_load_pods.txt
+- name: Print out the current projects after cluster load
+  shell: oc get projects --all-namespaces | tee cluster_loaded_projects.txt
+
+- name: Print out the current pods after cluster load
+  shell: oc get pods --all-namespaces | tee cluster_loaded_pods.txt

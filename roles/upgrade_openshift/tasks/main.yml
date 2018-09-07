@@ -13,11 +13,15 @@
     # Use bash to get the posix style redirects.
     executable: /bin/bash
 
-- name: Print out the node status
-  shell: oc get nodes -o wide | tee post_upgrade_nodes.txt
+- name: Pause to give pods more time to start
+  pause:
+    seconds: 5
 
-- name: Print out the current projects
-  shell: oc get projects --all-namespaces | tee post_upgrade_projects.txt
+- name: Print out the node status after upgrade
+  shell: oc get nodes -o wide | tee upgraded_nodes.txt
 
-- name: Print out the current pods
-  shell: oc get pods --all-namespaces | tee post_upgrade_pods.txt
+- name: Print out the current projects after upgrade
+  shell: oc get projects --all-namespaces | tee upgraded_projects.txt
+
+- name: Print out the current pods after upgrade
+  shell: oc get pods --all-namespaces | tee upgraded_pods.txt
