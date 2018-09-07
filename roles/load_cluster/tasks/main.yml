@@ -10,11 +10,12 @@
 
 - name: Set the KUBECONFIG environment variable
   set_fact:
-    kubeconfig: "export KUBECONFIG={{ ansible_user_dir }}/.kube/config"
+    kubeconfig: "KUBECONFIG={{ ansible_user_dir }}/.kube/config"
 
 - name: Pause to verify the cluster loader configuration
   pause:
     prompt: "About to load {{ cluster_loader_configuration }}. Continue?"
+    seconds: 10
 
 - name: Run the Cluster loader program
   shell: >

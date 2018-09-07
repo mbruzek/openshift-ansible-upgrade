@@ -2,6 +2,7 @@
 - name: Pause before running upgrade
   pause:
     prompt: "About to run the upgrade to {{ openshift_version_end }}. Continue?"
+    seconds: 10
 
 - name: Perform the upgrade
   shell: >
