@@ -15,8 +15,8 @@
   replace:
     backup: yes
     path: "{{ inventory_path }}"
-    regexp: "ansible_ssh_private_key_file=\".*?\""
-    replace: ""
+    regexp: 'ansible_ssh_private_key_file=".*?"'
+    replace: 'ansible_ssh_private_key_file="{{ private_key }}"'
 
 - name: Reload the inventory file after making changes
   meta: refresh_inventory
