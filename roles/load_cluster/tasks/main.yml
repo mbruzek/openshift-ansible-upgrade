@@ -55,6 +55,7 @@
     dest: "{{ backup_directory_local }}/"
     flat: yes
   with_items:
+    - load_cluster.log
     - cluster_loaded_nodes.txt
     - cluster_loaded_projects.txt
     - cluster_loaded_pods.txt

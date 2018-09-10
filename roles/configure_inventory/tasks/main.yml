@@ -3,8 +3,12 @@
   replace:
     backup: yes
     path: "{{ inventory_path }}"
-    regexp: 'ansible_ssh_private_key_file=".*?"'
-    replace: 'ansible_ssh_private_key_file="{{ ansible_ssh_private_key_file }}"'
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.replace }}"
+  with_items:
+    - { regexp: 'ansible_ssh_private_key_file=".*?"', replace: '' }
+    - { regexp: "^oreg_auth_user=.*$", replace: "oreg_auth_user={{ lookup('env', 'REG_AUTH_USER') }}"}
+    - { regexp: "^oreg_auth_password=.*$", replace: "oreg_auth_password={{ lookup('env','REG_AUTH_PASSWORD') }}"}
 
 - name: Reload the inventory file after making changes
   meta: refresh_inventory

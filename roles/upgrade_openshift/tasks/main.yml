@@ -9,12 +9,6 @@
     src: "{{ inventory_path }}"
     dest: "{{ inventory_path }}"
 
-- name: Edit the inventory file before the upgrade
-  replace:
-    path: "{{ inventory_path }}"
-    regexp: 'ansible_ssh_private_key_file=".*?"'
-    replace: ''
-
 - name: Perform the upgrade
   shell: >
     ansible-playbook -vvv
@@ -43,6 +37,7 @@
     dest: "{{ backup_directory_local }}/"
     flat: yes
   with_items:
+    - upgrade.log
     - upgraded_nodes.txt
     - upgraded_projects.txt
     - upgraded_pods.txt
