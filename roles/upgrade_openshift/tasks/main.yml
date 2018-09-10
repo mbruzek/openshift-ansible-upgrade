@@ -36,3 +36,13 @@
 
 - name: Print out the current pods after upgrade
   shell: oc get pods --all-namespaces | tee upgraded_pods.txt
+
+- name: Fetch the upgraded files
+  fetch:
+    src: "{{ item }}"
+    dest: "{{ backup_directory_local }}/"
+    flat: yes
+  with_items:
+    - upgraded_nodes.txt
+    - upgraded_projects.txt
+    - upgraded_pods.txt

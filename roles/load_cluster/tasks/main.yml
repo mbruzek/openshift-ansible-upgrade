@@ -8,6 +8,16 @@
 - name: Print out the original pods
   shell: oc get pods --all-namespaces | tee original_pods.txt
 
+- name: Fetch the original files
+  fetch:
+    src: "{{ item }}"
+    dest: "{{ backup_directory_local }}/"
+    flat: yes
+  with_items:
+    - original_nodes.txt
+    - original_projects.txt
+    - original_pods.txt
+
 - name: Set the KUBECONFIG environment variable
   set_fact:
     kubeconfig: "KUBECONFIG={{ ansible_user_dir }}/.kube/config"
@@ -38,3 +48,13 @@
 
 - name: Print out the current pods after cluster load
   shell: oc get pods --all-namespaces | tee cluster_loaded_pods.txt
+
+- name: Fetch the files after the cluster is loaded
+  fetch:
+    src: "{{ item }}"
+    dest: "{{ backup_directory_local }}/"
+    flat: yes
+  with_items:
+    - cluster_loaded_nodes.txt
+    - cluster_loaded_projects.txt
+    - cluster_loaded_pods.txt
