@@ -4,6 +4,11 @@
     prompt: "About to run the upgrade to {{ openshift_version_end }}. Continue?"
     seconds: 10
 
+- name: Copy the inventory file
+  copy:
+    src: "{{ inventory_path }}"
+    dest: "{{ inventory_path }}"
+
 - name: Perform the upgrade
   shell: >
     ansible-playbook -vvv
