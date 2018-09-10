@@ -1,16 +1,16 @@
 ---
 - name: Download cluster data
-  hosts: localhost
+  hosts: "{{ upgrade_host }}"
   roles:
     - download_cluster_data
 
 - name: Load the cluster
-  hosts: localhost
+  hosts: "{{ upgrade_host }}"
   roles:
     - load_cluster
 
 - name: Install openshift-ansible on the localhost
-  hosts: localhost
+  hosts: "{{ upgrade_host }}"
   become: true
   roles:
     - software_repositories
@@ -35,6 +35,6 @@
     - software_repositories
 
 - name: Perform the upgrade
-  hosts: localhost
+  hosts: "{{ upgrade_host }}"
   roles:
     - upgrade_openshift

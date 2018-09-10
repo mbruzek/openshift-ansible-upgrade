@@ -1,4 +1,5 @@
 ---
+ansible_ssh_private_key_file: "{{ lookup('env', 'PRIVATE_KEY') }}"
 aos_repo: "{{ lookup('env', 'aos_repo')|default('https://mirror.openshift.com/enterprise/all/' ~ openshift_version_end ~ '/latest/RH7-RHAOS-' ~ openshift_version_end ~'/x86_64/os/', true) }}"
 backup_directory_local: "{{ lookup('env', 'backup_directory_local')|default('backup', true) }}"
 backup_directory_remote: "{{ lookup('env', 'backup_directory_remote')|default('/backup', true) }}"
@@ -8,4 +9,4 @@ cluster_loader_configuration: "{{ lookup('env', 'cluster_loader_configuration')|
 inventory_path: "{{ lookup('env', 'inventory_path')|default('upgrade-inventory', true) }}"
 openshift_version_begin: "{{ lookup('env', 'openshift_version_begin')|default('3.10', true) }}"
 openshift_version_end: "{{ lookup('env', 'openshift_version_end')|default('3.11', true) }}"
-private_key: "{{ lookup('env', 'PRIVATE_KEY') }}"
+upgrade_host: "{{ lookup('env', 'upgrade_host')|default('pbench-controller', true) }}"
