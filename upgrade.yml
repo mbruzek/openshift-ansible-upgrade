@@ -1,4 +1,9 @@
 ---
+- name: Edit the inventory file
+  hosts: localhost
+  roles:
+    - configure_inventory
+
 - name: Download cluster data
   hosts: "{{ upgrade_host }}"
   roles:

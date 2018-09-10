@@ -9,3 +9,4 @@ cluster_loader_configuration: "{{ lookup('env', 'cluster_loader_configuration')|
 inventory_path: "{{ lookup('env', 'inventory_path')|default('upgrade-inventory', true) }}"
 openshift_version_begin: "{{ lookup('env', 'openshift_version_begin')|default('3.10', true) }}"
 openshift_version_end: "{{ lookup('env', 'openshift_version_end')|default('3.11', true) }}"
+upgrade_host: "{{ lookup('env', 'upgrade_host')|default('pbench-controller', true) }}"
