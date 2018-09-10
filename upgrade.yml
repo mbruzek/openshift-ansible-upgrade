@@ -4,10 +4,10 @@
   roles:
     - configure_inventory
 
-- name: Download cluster data
+- name: Transfer and uncompress the cluster data
   hosts: "{{ upgrade_host }}"
   roles:
-    - download_cluster_data
+    - handle_cluster_data
 
 - name: Load the cluster
   hosts: "{{ upgrade_host }}"
