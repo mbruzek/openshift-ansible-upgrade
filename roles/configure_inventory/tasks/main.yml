@@ -12,4 +12,5 @@
 - name: Download the cluster data
   get_url:
     url: "{{ cluster_data_url }}"
+    dest: "{{ playbook_dir }}/{{ cluster_data_url | basename }}"
   when: cluster_data_url != ""
