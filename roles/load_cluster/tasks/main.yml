@@ -22,11 +22,6 @@
   set_fact:
     kubeconfig: "KUBECONFIG={{ ansible_user_dir }}/.kube/config"
 
-- name: Pause to verify the cluster loader configuration
-  pause:
-    prompt: "About to load {{ cluster_loader_configuration }}. Continue?"
-    seconds: 10
-
 - name: Run the Cluster loader program
   shell: >
     {{ kubeconfig }}
@@ -36,9 +31,9 @@
     chdir: "{{ cluster_loader_base_directory }}"
     executable: /bin/bash
 
-- name: Pause to give pods more time to start
+- name: "Wait for {{ delay_seconds }} seconds to allow pods to start"
   pause:
-    seconds: 5
+    seconds: "{{ delay_seconds }}"
 
 - name: Print out the node status after cluster load
   shell: oc get nodes -o wide | tee cluster_loaded_nodes.txt

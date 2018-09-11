@@ -1,15 +1,10 @@
 ---
-- name: Pause before running upgrade
-  pause:
-    prompt: "About to run the upgrade to {{ openshift_version_end }}. Continue?"
-    seconds: 10
-
-- name: Copy the inventory file
+- name: Copy the inventory file to host
   copy:
     src: "{{ inventory_path }}"
     dest: "{{ inventory_path }}"
 
-- name: Perform the upgrade
+- name: Perform the OpenShift upgrade
   shell: >
     ansible-playbook -vvv
     -i {{ inventory_path }}
@@ -18,9 +13,9 @@
     # Use bash to get the posix style redirects.
     executable: /bin/bash
 
-- name: Pause to give pods more time to start
+- name: "Wait for {{ delay_seconds }} seconds to allow pods to start"
   pause:
-    seconds: 5
+    seconds: "{{ delay_seconds }}"
 
 - name: Print out the node status after upgrade
   shell: oc get nodes -o wide | tee upgraded_nodes.txt

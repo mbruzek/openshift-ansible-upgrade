@@ -6,6 +6,7 @@ backup_directory_remote: "{{ lookup('env', 'backup_directory_remote')|default('/
 cluster_data_url: "{{ lookup('env', 'cluster_data_url') }}"
 cluster_loader_base_directory: "{{ lookup('env', 'cluster_loader_base_directory')|default('/root/svt/openshift_scalability', true) }}"
 cluster_loader_configuration: "{{ lookup('env', 'cluster_loader_configuration')|default('config/golang/nodeVertical', true) }}"
+delay_seconds: "{{ lookup('env', 'delay_seconds')|default("15", true) }}"
 inventory_path: "{{ lookup('env', 'inventory_path')|default('upgrade-inventory', true) }}"
 openshift_version_begin: "{{ lookup('env', 'openshift_version_begin')|default('3.10', true) }}"
 openshift_version_end: "{{ lookup('env', 'openshift_version_end')|default('3.11', true) }}"
