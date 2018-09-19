@@ -1,0 +1,51 @@
+---
+- name: Get the version of the oc command
+  command: oc version
+
+- name: Get the version of the openshift-ansible software installed
+  command: rpm -q openshift-ansible
+  args:
+    warn: false
+
+- name: Get the cluster-info
+  command: kubectl cluster-info
+  register: cluster_info
+
+- name: Find the cluster url
+  set_fact:
+    cluster_url: "{{ cluster_info.stdout|regex_search('(http.*:[0-9]+)') }}"
+
+- name: Get the cluster url
+  uri:
+    url: "{{ cluster_url }}"
+    validate_certs: no
+  register: openshift_cluster
+  when: cluster_url is defined and cluster_url != ""
+
+- name: Fail if the cluster URL is not responding
+  fail:
+    msg: "The cluster URL {{ cluster_url }} is not responding: {{ openshift_cluster }}"
+  when: openshift_cluster.status != 200
+
+- name: Check the pods for namespaces
+  command: "oc get pods -n {{ item }} --no-headers"
+  register: "pods"
+  with_items: "{{ namespaces }}"
+
+- name: Print results
+  debug:
+    msg: "{{ namespaces[ item|int ] }} has {{ pods.results[ item|int ].stdout.count('Running') }} pods in Running state."
+  with_sequence: "start=0 count={{ namespaces|length }}"
+
+- name: Create a project and pod
+  shell: "oc new-project upgrade-verification ; oc create -f /root/svt/openshift_scalability/content/pod-pause.json"
+
+- name: Pause to allow the pod to start
+  pause:
+    seconds: 3
+
+- name: List the pod
+  command: "oc get pods"
+
+- name: Delete the project
+  command: "oc delete project upgrade-verification"

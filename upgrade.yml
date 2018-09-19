@@ -43,3 +43,4 @@
   hosts: "{{ upgrade_host }}"
   roles:
     - upgrade_openshift
+    - verify_upgrade

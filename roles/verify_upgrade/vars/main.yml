@@ -1,0 +1,9 @@
+---
+namespaces:
+  - default
+  - "kube-system"
+  - "openshift-console"
+  - "openshift-metrics"
+  - "openshift-monitoring"
+  - "openshift-node"
+  - "openshift-sdn"
